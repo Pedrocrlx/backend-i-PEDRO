@@ -1,5 +1,6 @@
 from datetime import datetime
 import logging
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO,
                     format=" [%(lineno)d] - [%(filename)s] - [%(funcName)s] - [%(asctime)s]")
