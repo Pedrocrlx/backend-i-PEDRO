@@ -3,7 +3,7 @@ name = "session-14"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Pedro Santos",email = "pedrosantoscrlx@gmail.com"}
+    {name = "Huniity",email = "adrien.dejonc@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "session_14", from = "src"}]
+packages = [{include = "session_14"}]
 
 
 [build-system]
