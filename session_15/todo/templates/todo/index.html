@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> </title>
-</head>
-<body>
-    <h1>Hello world</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}
+Task App Django
+{% endblock %}
+
+{% block menu %}
+<h1> Task App </h1>
+{% endblock %}
+
+{% block content %}
+<div>
+    <a href="{% url 'signin'%}"></a>
+    <a href="{% url 'signup'%}"></a>
+</div>
+{% endblock %}
