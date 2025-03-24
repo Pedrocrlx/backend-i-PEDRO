@@ -11,6 +11,9 @@ migration:
 createsuperuser:
 	poetry run python manage.py createsuperuser
 
+tests:
+	poetry run pytest -vvv
+
 newapp:
 	poetry run python manage.py startapp $(app)
 	@# to execute run `make newapp app=cenas`
