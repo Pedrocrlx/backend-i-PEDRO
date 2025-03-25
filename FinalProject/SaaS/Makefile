@@ -13,6 +13,9 @@ createsuperuser:
 tests:
 	poetry run pytest -vvv
 
+compose.start:
+	docker compose up --build --force-recreate
+	
 newapp:
 	poetry run python manage.py startapp $(app)
 	@# to execute run `make newapp app=cenas`
