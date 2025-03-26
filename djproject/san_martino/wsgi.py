@@ -1,5 +1,5 @@
 """
-WSGI config for SaaS project.
+WSGI config for san_martino project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "SaaS.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "san_martino.settings")
 
 application = get_wsgi_application()

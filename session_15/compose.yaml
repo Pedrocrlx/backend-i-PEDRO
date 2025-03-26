@@ -14,7 +14,7 @@ services:
     environment:
       POSTGRES_PASSWORD: qwerty
       POSTGRES_DATABASE: dj_db
-  adminer:
+  adminer: 
     image: adminer:latest
     ports:
       - 8080:8080
