@@ -77,7 +77,7 @@ WSGI_APPLICATION = "djproject.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        ake 
+        
     }
 }
 

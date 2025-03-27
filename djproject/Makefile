@@ -28,3 +28,6 @@ compose.migrate:
 
 compose.collectstatic:
 	docker compose exec web poetry run python manage.py collectstatic --noinput
+
+compose.createsuperuser:
+	docker compose run --rm web poetry run python manage.py createsuperuser
