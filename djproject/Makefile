@@ -26,6 +26,9 @@ compose.start:
 compose.migrate:
 	docker compose run --rm web poetry run python manage.py migrate
 
+compose.migrations:
+	docker compose run --rm web poetry run python manage.py makemigrations
+
 compose.collectstatic:
 	docker compose exec web poetry run python manage.py collectstatic --noinput
 

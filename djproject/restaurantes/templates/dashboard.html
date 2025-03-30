@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ restaurant.name }}</h1>
+    <h2>Products</h2>
+    <ul>
+        {% for product in products %}
+        <li>{{ product.name }} - {{ product.category }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Orders</h2>
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Date</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>
+                {% for product in order.products.all %}
+                {{ product.name }}
+                {% endfor %}
+            </td>
+            <td>
+                {% for po in order.productorder_set.all %}
+                {{ po.quantity }}
+                {% endfor %}
+            </td>
+            <td>{{ order.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
