@@ -1,67 +1,80 @@
-# Sistema de Gestão de Restaurantes
+# 🍴 Restaurant Management System
 
-Este é um sistema de gestão de restaurantes e pedidos, desenvolvido em Django. Ele permite que administradores criem e gerenciem restaurantes, enquanto os restaurantes podem gerenciar seus pedidos.
+This is a restaurant and order management system developed in Django. It allows an administrator to create and manage restaurants, products, and orders, while restaurants can manage their own orders.
 
-## Como Executar o Programa
+## 🚀 How to Run the Program
 
-Siga os passos abaixo para configurar e executar o projeto:
+Follow the steps below to set up and run the project:
 
-### 1. Verificar se está no DevContainer
-Certifique-se de que está dentro do DevContainer no Visual Studio Code. O DevContainer é configurado automaticamente ao abrir o projeto no VS Code, caso você tenha o Docker instalado e configurado.
+### 1. Verify You Are in the DevContainer 🐳
+Make sure you are inside the DevContainer in Visual Studio Code. The DevContainer is automatically configured when you open the project in VS Code, provided you have Docker installed and set up.
 
-- Se o DevContainer não iniciar automaticamente, clique no canto inferior esquerdo do VS Code e selecione **"Reabrir no DevContainer"**.
+- If the DevContainer does not start automatically, click on the bottom-left corner of VS Code and select **"Reopen in DevContainer"**.
 
-### 2. Iniciar o Projeto
-No terminal, execute o seguinte comando para iniciar o projeto, aplicar as migrações e configurar o ambiente:
+### 2. Start the Project ▶️
+In the terminal, run the following command to start the project and set up the environment:
 
 ```bash
 make compose.setup
 ```
 
-### 3. Criar um Superusuário
-Abra um novo terminal e execute o comando abaixo para criar um superusuário para acessar o painel administrativo:
+Then, apply the migrations:
+
+```bash
+make compose.migrate
+```
+
+### 3. Create a Superuser and `.env` File 🔑
+Open a new terminal and run the command below to create a superuser to access the admin panel:
 
 ```bash
 make compose.createsuperuser
 ```
 
-Siga as instruções no terminal para definir o nome de usuário, e-mail e senha do superusuário.
+Follow the instructions in the terminal to set the username, email, and password for the superuser.
 
-### 4. Acessar o Sistema
-Após os passos acima, o sistema estará disponível em http://127.0.0.1:8000. Use as credenciais do superusuário para acessar o painel administrativo.
+After that, create a file named `.env` in the root of the project.
 
-## Dependências do Projeto
-As dependências do projeto estão listadas no arquivo pyproject.toml. Aqui estão as principais:
+This file should have the following structure:
 
-- Django: Framework web para desenvolvimento rápido e limpo.
-- Uvicorn: Servidor ASGI para rodar o projeto.
-- Psycopg2-binary: Driver para conexão com o banco de dados PostgreSQL.
-- Whitenoise: Para servir arquivos estáticos.
+#### 🌐 `.env` Structure
+```env
+POSTGRES_HOST = "database"
+POSTGRES_USERNAME = "postgres"
+POSTGRES_PASSWORD = "qwerty"
+POSTGRES_PORT = "5432"
+POSTGRES_DB = "dj_db"
+```
 
-Certifique-se de que o Docker e o Docker Compose estão instalados no seu sistema para executar o projeto.
+### 4. Access the System 🌍
+After completing the steps above, the system will be available at [http://localhost:8000](http://localhost:8000). Use the superuser credentials to access the admin panel.
 
-## Funcionalidades
-### Para Administradores:
-- Fazer login como administrador.
-- Criar e apagar restaurantes.
-- Visualizar os restaurantes criados e suas encomendas.
+## 📦 Project Dependencies
+The project dependencies are listed in the `pyproject.toml` file. Here are the main ones:
 
-### Para Restaurantes:
-- Fazer login como restaurante.
-- Visualizar suas encomendas.
-- Criar novas encomendas (funcionalidade pendente).
+- **Django**: Web framework for rapid and clean development.
+- **Uvicorn**: ASGI server to run the project.
+- **Psycopg2-binary**: Driver for connecting to the PostgreSQL database.
+- **Whitenoise**: To serve static files.
 
-## Comandos Úteis no Makefile
-- `make compose.setup`: Inicia o projeto, aplica as migrações e configura o ambiente.
-- `make compose.start`: Inicia os contêineres Docker.
-- `make compose.migrate`: Aplica as migrações do banco de dados.
-- `make compose.createsuperuser`: Cria um superusuário para o Django Admin.
-- `make compose.collectstatic`: Coleta os arquivos estáticos.
+Make sure Docker is installed on your system to run the project.
 
-## ESTRUTURA .ENV
-- POSTGRES_HOST = "database"
-- POSTGRES_USERNAME = "postgres"
-- POSTGRES_PASSWORD = "qwerty"
-- POSTGRES_PORT= "5432"
-- POSTGRES_DB= "dj_db"
+## ✨ Features
+### For Administrators:
+- Log in as an administrator (superuser login).
+- Create restaurants.
+- Create products.
+- View created restaurants and their orders.
+
+### For Restaurants:
+- Log in as a restaurant (only the admin creates restaurant logins, as each restaurant will have its own manager responsible for orders).
+- View their orders.
+- Create new orders.
+
+## 🛠️ Useful Makefile Commands
+- `make compose.setup`: Starts the project, applies migrations, and sets up the environment.
+- `make compose.start`: Starts the Docker containers.
+- `make compose.migrate`: Applies database migrations.
+- `make compose.createsuperuser`: Creates a superuser for the Django Admin.
+- `make compose.collectstatic`: Collects static files.
 

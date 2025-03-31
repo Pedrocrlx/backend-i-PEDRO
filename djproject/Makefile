@@ -19,12 +19,11 @@ py3clean:
 
 compose.setup:
 	@$(MAKE) compose.start
-	@$(MAKE) compose.migrate
 
 compose.start:
 	docker compose up --build --force-recreate
 
-compose.migrate:
+compose.migrate: compose.migrations
 	docker compose run --rm web poetry run python manage.py migrate
 
 compose.migrations:
