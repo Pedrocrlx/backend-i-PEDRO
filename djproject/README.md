@@ -57,3 +57,11 @@ Certifique-se de que o Docker e o Docker Compose estão instalados no seu sistem
 - `make compose.migrate`: Aplica as migrações do banco de dados.
 - `make compose.createsuperuser`: Cria um superusuário para o Django Admin.
 - `make compose.collectstatic`: Coleta os arquivos estáticos.
+
+## ESTRUTURA .ENV
+- POSTGRES_HOST = "database"
+- POSTGRES_USERNAME = "postgres"
+- POSTGRES_PASSWORD = "qwerty"
+- POSTGRES_PORT= "5432"
+- POSTGRES_DB= "dj_db"
+
