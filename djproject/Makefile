@@ -17,8 +17,9 @@ new-app:
 py3clean:
 	py3clean .
 
-tests:
-	poetry run pytest -vvv
+compose.setup:
+	@$(MAKE) compose.start
+	@$(MAKE) compose.migrate
 
 compose.start:
 	docker compose up --build --force-recreate

@@ -1,28 +1,39 @@
 from django.contrib import messages
-from django.shortcuts import redirect, render, get_object_or_404
-from .models import Order, Product, Restaurant
-from .forms import OrderForm, RestaurantForm, AdminLoginForm
+from django.shortcuts import redirect, render
+from .models import Order, Product, ProductOrder, Restaurant
+from .forms import CreateOrderForm, ProductForm, RestaurantForm, AdminLoginForm
 from django.contrib.auth.models import User  # type: ignore
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
-# Create your views here.
+# Create your views here. 
 
 def create_order(request):
+    if not request.user.is_authenticated:
+        return redirect('restaurant_login')  # Garantir que o usuário está logado
+
     if request.method == 'POST':
-        form = OrderForm(request.POST)
+        form = CreateOrderForm(request.POST)
         if form.is_valid():
-            form.save()
+            # Criar a encomenda associada ao restaurante do usuário
+            restaurant = request.user.restaurant  # Presume que existe um `Restaurant` associado ao `User`
+            order = Order.objects.create(restaurant=restaurant)
+
+            # Processar os produtos selecionados e quantidades
+            for product_id, quantity in form.cleaned_data.items():
+                if quantity > 0:
+                    product = Product.objects.get(id=product_id)
+                    ProductOrder.objects.create(order=order, product=product, quantity=quantity)
+
             return redirect('order_success')  # Redireciona após salvar
     else:
-        form = OrderForm()
-    return render(request, 'create_order.html', {'form': form})
+        form = CreateOrderForm()
 
+    return render(request, 'create_order.html', {'form': form})
 
 def order_success(request):
     return render(request, 'order_success.html')
-
 
 def create_restaurant(request):
     if not request.user.is_authenticated or not request.user.is_staff:
@@ -45,12 +56,6 @@ def create_restaurant(request):
         form = RestaurantForm()
 
     return render(request, 'create_restaurant.html', {'form': form})
-
-
-def delete_restaurant(request, restaurant_id):
-    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
-    restaurant.delete()
-    return redirect('admin_dashboard')
 
 
 def restaurant_login(request):
@@ -83,7 +88,7 @@ def admin_login(request):
             password = form.cleaned_data['password']
 
             user = authenticate(request, username=username, password=password)
-            if user is not None and user.is_admin:  # Verifica se é um admin
+            if user is not None and user.is_staff:  # Verifica se é um admin
                 login(request, user)
                 return redirect('admin_dashboard')
             else:
@@ -91,14 +96,9 @@ def admin_login(request):
     else:
         form = AdminLoginForm()
 
-    restaurants = Restaurant.objects.all()
-    orders = Order.objects.all()
-
-    return render(request, 'admin_dashboard.html', {
-        'restaurants': restaurants,
-        'orders': orders
+    return render(request, 'admin_login.html', {
+        'form': form,
     })
-
 
 def admin_dashboard(request):
     if not request.user.is_authenticated or not request.user.is_staff:
@@ -131,3 +131,20 @@ def dashboard(request):
         'products': products,
         'orders': orders
     })
+
+
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard')  # Redireciona para uma lista de produtos
+    else:
+        form = ProductForm()
+
+    return render(request, 'create_product.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('restaurant_login')  # Redirect to the login page after logout

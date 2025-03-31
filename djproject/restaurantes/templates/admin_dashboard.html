@@ -4,6 +4,7 @@
     <title>Admin Dashboard</title>
 </head>
 <body>
+    <a href="{% url 'logout' %}">logout</a>
     <h1>Welcome, Admin!</h1>
 
     <h2>Manage Restaurants</h2>
@@ -13,17 +14,21 @@
         {% endfor %}
     </ul>
     <a href="{% url 'create_restaurant' %}">Add New Restaurant</a>
+    <br>
+    <a href="{% url 'create_product' %}">Add New Product to Orders</a>
     
     <h2>Orders</h2>
     <table>
         <tr>
             <th>Restaurant</th>
             <th>Date</th>
+            <th>Order</th>
         </tr>
         {% for order in orders %}
         <tr>
             <td>{{ order.restaurant.name }}</td>
             <td>{{ order.created_at }}</td>
+            <td>{{ ProductOrder }}</td>
         </tr>
         {% endfor %}
     </table>
